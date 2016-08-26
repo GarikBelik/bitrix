@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Тестовое задание</title>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="css/main.css" />
+	
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-switch.min.css">
+	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
+	
+	<script type="text/javascript" src="js/moment-with-locales.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-switch.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+
+	<script type="text/javascript" href="js/main.js"></script>
+	
+	<script type="text/javascript">
+		$("document").ready(function(){
+		// date-time settings
+				$('#datetimepicker-start-time').datetimepicker({
+					format: 'DD.MM.YYYY h:mm A'
+				});
+				$('#datetimepicker-end-time').datetimepicker({
+					pickDate: false
+				});
+				$('#datetimepicker-daily').datetimepicker({
+					format: 'DD.MM.YYYY',
+					pickTime: false
+                });
+		// recurring radio button
+				$('#recurring').bootstrapSwitch();
+		// show/hide week		
+				$('#repeats').on('change',function (e) {
+					$('.week').hide();
+					$('#' + $(this).val()).show();
+				});
+		// disabled ends input or select days
+				$('.ends input[type="radio"]').click(function(){
+					$('.ends input:not([type="radio"]), .ends select').attr('disabled', true);
+					$('[name="' + $(this).attr('id') + '"]').attr('disabled', false);
+				});
+		
+		// function days in month
+				Date.prototype.daysInMonth = function(year, month) {
+					return 33 - new Date(year, month, 33).getDate();
+				};
+				
+		// create result data when button save is click
+				$('.modal [type="submit"]').click(function(){
+					var days = 0;
+				
+					var result = {
+						date: [],
+						start_time: '',
+						end_time: '',
+						settings:{
+							weekly: [],
+							start_data: '',
+							ends: ''
+						}
+					};
+					
+					var start = $('#datetimepicker-start-time').val(),
+						ends = ($('.ends #ends-on').is(':checked')) ? $('#datetimepicker-daily').val() : $('.ends select').val() ;
+						repeats = false;
+					
+						result.end_time = $('#datetimepicker-end-time').val();
+					
+					var arrStartDateTime = start.split(' '),
+						arrStartDate = arrStartDateTime[0].split('.');
+						
+					var	startD = parseInt (arrStartDate[0]),
+						startM = parseInt (arrStartDate[1]) - 1,
+						startY = arrStartDate[2],
+						startDate = new Date(startY, startM, startD);
+
+					if(ends.length > 4){
+						var arrEndsDate = ends.split('.')
+							endD = parseInt (arrEndsDate[0]),
+							endM = parseInt (arrEndsDate[1]) - 1,
+							endY = arrEndsDate[2],
+							endDate = new Date(endY, endM, endD);
+					}else{
+						var arrEndsDate = false;
+					}
+					
+					result.start_time = arrStartDateTime[1] + ' ' + arrStartDateTime[2];
+					//result.end_time = arrEndDateTime[1] + ' ' + arrEndDateTime[2];
+					
+					result.settings.start_data = arrStartDateTime[0];
+					result.settings.ends = ends;
+					
+					if($('.repeats select').val() == 'weekly'){
+						repeats = true;
+						$('.week .week-days').each(function(){
+							var elem = $(this).find('input');
+							if(elem.is(':checked')){
+								result.settings.weekly.push(elem.val());
+							}
+						});
+					}
+					if(arrEndsDate != false){
+						days = ((endDate - startDate)/1000/60/60/24);
+					}else{
+						days = $('.ends select').val()-1;
+					}
+					
+					/*if(!repeats){
+						result.date.push(new Date(startDate));
+					}else{
+						for(var i = 0; i < result.settings.weekly.length; i++){
+							if(startDate.toString().indexOf(result.settings.weekly[i]) !== -1) result.date.push(new Date(startDate));
+						}
+					}*/
+					
+					for(var j = 0; days != -1; days--){
+						var date = new Date(startDate.setDate(startDate.getDate() + j));
+						if(repeats){
+							var flag = false;
+							for(var i = 0; i < result.settings.weekly.length; i++){
+								if(date.toString().indexOf(result.settings.weekly[i]) !== -1) {
+									result.date.push(date);
+									var flag = true;
+								}
+							}
+							if(!flag){
+								days++;
+							}
+						}else{
+							result.date.push(date);
+						}
+						j = 1;
+					}
+					
+					console.log(result);
+				});
+		});
+	</script>	
+</head>
+<body>
+<div id="modal" class="modal fade" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form  action="">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Availability</h4>
+				</div>
+				<div class="modal-body set-date-time">
+					<div class="row">
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<span class="span-label">Start</span>
+						</div>
+						<div class="col-md-7 col-sm-7 col-xs-7">
+							<input type="text" class="form-control input-sm" id="datetimepicker-start-time" />
+						</div>
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<span class="span-label">End</span>
+						</div>
+						<div class="col-md-7 col-sm-7 col-xs-7">
+							<input type="text" class="form-control input-sm" id="datetimepicker-end-time" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<span class="span-label">Availability</span>
+						</div>
+						<div class="col-md-18 col-sm-18 col-xs-18">
+							<select class="red form-control input-sm">
+								<option class="red">Unavailable</option>
+							</select>
+						</div>
+					</div>
+					<div class="row recurring">
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<span class="span-label">Recurring</span>
+						</div>
+						<div class="col-md-20 col-sm-20 col-xs-20">
+							<input type="checkbox" name="recurring" id="recurring" checked data-size="small">
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="modal-body set-date-time">
+					<div class="row repeats">
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<span class="span-label">Repeats</span>
+						</div>
+						<div class="col-md-7 col-sm-7 col-xs-7">
+							<select id="repeats" class="form-control input-sm">
+								<option value="daily" >Daily</option>
+								<option value="weekly">Weekly</option>
+							</select>
+						</div>
+					</div>
+					<div class="row week" id="weekly">
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<span class="span-label">Days</span>
+						</div>
+						<div class="week-days">
+							<label>
+								<input type="checkbox" name="su" value="Sun" />
+								<span>Su</span>
+							</label>
+						</div>
+						<div class="week-days">
+							<label>
+								<input type="checkbox" name="mo" value="Mon" />
+								<span>Mo</span>
+							</label>
+						</div>
+						<div class="week-days">
+							<label>
+								<input type="checkbox" name="tu" value="Tue" />
+								<span>Tu</span>
+							</label>
+						</div>
+						<div class="week-days">
+							<label>
+								<input type="checkbox" name="we" value="Wed" />
+								<span>We</span>
+							</label>
+						</div>
+						<div class="week-days">
+							<label>
+								<input type="checkbox" name="th" value="Thu" />
+								<span>Th</span>
+							</label>
+						</div>
+						<div class="week-days">
+							<label>
+								<input type="checkbox" name="fr" value="Fri" />
+								<span>Fr</span>
+							</label>
+						</div>
+						<div class="week-days">
+							<label>
+								<input type="checkbox" name="st" value="Sat" />
+								<span>St</span>
+							</label>
+						</div>
+					</div>
+					<div class="row ends">
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<span class="span-label">Ends</span>
+						</div>
+						<div class="col-md-4 col-sm-4 col-xs-4">
+							<label><input name="ends" type="radio" id="ends-after" value="" /><span>After</span></label>
+						</div>
+						<div class="col-md-7 col-sm-7 col-xs-7">
+							<select disabled name="ends-after" multiple="multiple" class="multiple form-control" size="3">
+								<option value="1" selected>1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+							</select>
+						</div>
+						<div class="col-md-5 col-sm-5 col-xs-5">
+							occurrences
+						</div>
+					</div>
+					<div class="row ends">
+						<div class="col-md-offset-4 col-sm-offset-4 col-md-4 col-sm-4 col-xs-4">
+							<label><input checked name="ends" id="ends-on" type="radio" value="" /><span>On</span></label>
+						</div>
+						<div class="col-md-7 col-sm-7 col-xs-7">
+							<input  name="ends-on" type="text" class="form-control input-sm" id="datetimepicker-daily" />
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="modal-bottom">
+					<div class="row">
+						<div class="col-md-offset-18 col-sm-offset-18 col-xs-offset-16">
+							<button type="submit" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<br/>
+<div class="center">
+	<button class="btn btn-default" data-toggle="modal" data-target="#modal" >Click</button>
+</div>
+
+</body>
+</html>

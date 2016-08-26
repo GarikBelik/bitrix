@@ -1,0 +1,33 @@
+<div class="pages-panel">
+    <div class="slide-panel">
+
+    </div>
+    <div class="pagination">
+        <div class="pages">PAGE
+            <span class="current" >1</span> of <span class="total" >1</span>
+        </div>
+        <div class="open-selector">
+            <img src="/assets/ui/arrow-down.svg">
+        </div>
+    </div>
+</div>
+<div class="previous-page">
+    <img src="/assets/ui/arrow-left.svg">
+</div>
+<div class="next-page">
+    <img src="/assets/ui/arrow-right.svg">
+</div>
+<div class="print-block">
+    <div class="stage-contain layout-6">
+
+    </div>
+    <div class="stage-footer">
+        <div class="instructions">
+
+        </div>
+        <div class="logo">
+            <img class="stageLogo1" src="/assets/ui/logo-black.svg">
+            <p>teach.starfall.com</p>
+        </div>
+    </div>
+</div>

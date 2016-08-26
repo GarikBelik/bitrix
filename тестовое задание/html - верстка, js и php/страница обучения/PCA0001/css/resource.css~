@@ -1,0 +1,151 @@
+.stage-contain.layout-8 .stage-item{
+	height: 25%;
+	float: left;
+}
+.stage-contain{
+    height: 759px;
+}
+
+.wrapper .hide{
+	display: none;
+}
+.wrapper .show, .wrapper .previous-page.declare, .wrapper .next-page.declare, .page-thumbnail .print-block {
+	display: block;
+}
+.wrapper .pages-panel.scroll {
+	width: 630px;
+	max-width: 630px;
+}
+.wrapper .substrate {
+	width: 648px;
+	height: 843px;
+	position: absolute;
+	top: 59px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	box-shadow: 0 0 5px #888;
+	background: #fff;
+}
+.substrate.v0 {
+	left: 8px;
+	top: 63px;
+	z-index: 50;
+}
+.substrate.v1 {
+	left: 16px;
+	top: 68px;
+	z-index: 49;
+}
+.substrate.v2 {
+	left: 24px;
+	top: 73px;
+	z-index: 48;
+}
+.wrapper #convas-0{
+	margin-top: -40px;
+}
+.wrapper .pagination{
+	position: absolute;
+	margin-left: 225px;
+	left: 0px;
+}
+.right-menu{
+	z-index: 150;
+}
+.stage-contain .stage-item .label.script{
+	font-family: StarfallMSBold, "Starfall MS Bold", script;
+}
+.stage-contain.layout-1 .stage-item{
+	-webkit-transform: initial; 
+	-moz-transform: initial;
+	-o-transform: initial;
+	-ms-transform: initial;
+	transform: initial;
+}
+.stage-contain.layout-4 .stage-item{
+	padding-bottom: 150px;
+	padding-top: 40px;
+	float: left;
+}
+.stage-contain.layout-6 .stage-item{
+	padding-bottom: 120px;
+	padding-top: 20px;
+	float: left;
+}
+.stage-contain.layout-1:not(.page) .stage-item img{
+	min-height: 300px;
+	max-height: 400px;
+	min-width: 395px;
+	max-width: 545px;
+	height: auto;
+	width: auto;
+	margin-top: 10%;
+	padding: 15px;
+}
+.stage-contain.layout-1:not(.page) .stage-item .label{
+	margin-top: 5px;
+}
+.stage-contain.layout-2:not(.page) .stage-item img{
+	min-height: 160px;
+	min-width: 190px;
+	height: auto;
+	width: auto;
+	max-height: 280px;
+	max-width: 365px;
+	margin-top: 5%;
+}
+.stage-contain.layout-4:not(.page) .stage-item img{
+	min-height: 120px;
+	min-width: 150px;
+	height: auto;
+	width: auto;
+	margin-top: 4%;
+	padding-top: 8%;
+	padding-bottom: 9%;
+}
+.stage-contain.layout-4:not(.page) .stage-item .label{
+	position: relative;
+	top: -20px;
+}
+.stage-contain.layout-6:not(.page) .stage-item img{
+	min-height: 90px;
+	max-height: 180px;
+	min-width: 110px;
+	max-width: 240px;
+	height: auto;
+	width: auto;
+	padding-top: 3%;
+	padding-bottom: 25%;
+}
+.stage-contain.layout-6:not(.page) .stage-item .label{
+	position: relative;
+	top: -70px;
+	padding-top: 5%;
+}
+.stage-contain.layout-8:not(.page) .stage-item img{
+	min-height: 90px;
+	max-height: 130px;
+	min-width: 110px;
+	max-width: 170px;
+	height: auto;
+	width: auto;
+	margin-top: 2%;
+	padding-bottom: 18%;
+}
+.stage-contain.layout-8:not(.page) .stage-item .label{
+	position: relative;
+	top: -45px;
+}
+.stage-contain.layout-6 .stage-item {
+    height: 33.33%;
+    padding: 20px;
+}
+.stage-contain.layout-4 .item-image{
+	width: 100%;
+	height: 170%;
+}
+.stage-contain.layout-6 .item-image, .stage-contain.layout-8 .item-image{
+	width: 100%;
+	height: 125%;
+}

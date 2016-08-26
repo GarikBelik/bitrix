@@ -1,0 +1,58 @@
+.print-block {
+    width: 656px;
+    height: 870px;
+    background: #fff;
+    text-align: left;
+    font-family: VAGzStarLight, sans serif;
+    margin: 0 auto;
+	display: block !important;
+	visibility: visible !important;
+}
+.stage-contain.layout-4 .stage-item{
+	padding-bottom: 250px;
+	padding-top: 10px;
+}
+.stage-contain.layout-6 .stage-item{
+	padding-bottom: 150px;
+	padding-top: 20px;
+}
+.stage-contain.layout-6 .stage-item{
+	padding-bottom: 100px;
+	padding-top: 5px;
+}
+.stage-contain.layout-2 .stage-item  {
+	height: 50% !important;
+}
+.stage-contain.layout-4 .stage-item, .stage-contain.layout-4 .stage-item {
+	height: 50% !important;
+}
+.stage-contain.layout-6 .stage-item{
+	height: 33.33% !important;
+}
+.stage-contain.layout-8 .stage-item {
+	height: 25% !important;
+}
+.stage-contain.layout-4 .stage-item img{
+	height: 250px !important;
+	padding-bottom: 100px;
+}
+.stage-contain.layout-8 .stage-item img {
+	height: 170px !important;
+	max-width: 265px;
+}
+.stage-contain {
+    height: 870px;
+}
+.stage-contain.layout-6 .stage-item {
+    height: 33.33%;
+    padding: 20px;
+}
+.stage-contain.layout-4 .item-image{
+	height: 345px;
+}
+.stage-contain.layout-6 .item-image{
+	height: 265px;
+}
+.stage-contain.layout-8 .item-image{
+	height: 215px;
+}
